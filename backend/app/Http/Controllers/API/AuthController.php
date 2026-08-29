@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,5 +55,18 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Logged out successfully'
         ]);
+    }
+
+    public function loginAdmin(Request $request)
+    {
+        if (!Auth::guard('admin')->attempt($request->only('email', 'password'))) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        $admin = Admin::where('email', $request['email'])->firstOrFail();
+
+        $token = $admin->createToken('auth_token')->plainTextToken;
+
+        return response()->json(['message' => 'Hi ' . $admin->name . ', welcome to admin home', 'access_token' => $token, 'token_type' => 'Bearer']);
     }
 }

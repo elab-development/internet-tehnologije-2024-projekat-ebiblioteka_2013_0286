@@ -25,3 +25,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
 Route::resource('books', BookController::class);
+
+
+//admin
+
+Route::group(['middleware' => ['auth:admin-api']], function () {});
+Route::post('/admin/login', [AuthController::class, 'loginAdmin']);
