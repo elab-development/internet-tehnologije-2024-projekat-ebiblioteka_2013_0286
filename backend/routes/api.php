@@ -18,6 +18,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/books', [BookController::class, 'index']);
+    Route::get('/books/{book}', [BookController::class, 'show']);
 });
 
 

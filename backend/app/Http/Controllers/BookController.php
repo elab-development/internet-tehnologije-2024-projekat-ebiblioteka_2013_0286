@@ -13,6 +13,7 @@ class BookController extends Controller
     public function index()
     {
         //
+        return response()->json(Book::with('libraries')->get());
     }
 
     /**
@@ -37,6 +38,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         //
+        return response()->json($book->load('libraries'));
     }
 
     /**
