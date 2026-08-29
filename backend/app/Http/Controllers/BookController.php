@@ -78,6 +78,27 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         //
+        $validated = $request->validate([
+            'title' => 'required|string|max:100',
+            'genre' => 'required|string|max:50',
+            'description' => 'required|string',
+            'author_id' => 'required|exists:authors,id',
+            'library_ids' => 'nullable|array',
+            'library_ids.*' => 'exists:libraries,id'
+        ]);
+
+        $book->update([
+            'title' => $validated['title'],
+            'genre' => $validated['genre'],
+            'description' => $validated['description'],
+            'author_id' => $validated['author_id']
+        ]);
+
+        if (isset($validated['library_ids'])) {
+            $book->libraries()->sync($validated['library_ids']);
+        }
+
+        return response()->json($book->load(['author', 'libraries']));
     }
 
     /**
