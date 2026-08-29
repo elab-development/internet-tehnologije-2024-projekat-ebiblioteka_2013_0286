@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -22,6 +23,7 @@ class BookController extends Controller
     public function create()
     {
         //
+        // $validator
     }
 
     /**
@@ -30,6 +32,27 @@ class BookController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'genre' => 'required|string|max:100',
+            'description' => 'required|string',
+            'author_id' => 'required|exists:authors,id',
+            'library_ids' => 'nullable | array',
+            'library_ids.*' => 'exists:libraries, id'
+        ]);
+
+        $book = Book::create([
+            'title' => $validated['title'],
+            'genre' => $validated['genre'],
+            'description' => $validated['description'],
+            'author_id' => $validated['author_id']
+        ]);
+
+        if (!empty($validated['library_ids'])) {
+            $book->libraries()->attach($validated['library_ids']);
+        }
+
+        return response()->json($book->load(['author', 'libraries']), 201);
     }
 
     /**
