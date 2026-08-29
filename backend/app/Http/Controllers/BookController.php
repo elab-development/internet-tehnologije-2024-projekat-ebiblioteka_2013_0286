@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookCollection;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +16,10 @@ class BookController extends Controller
     public function index()
     {
         //
-        return response()->json(Book::with('libraries')->get());
+        // return response()->json(Book::with('libraries')->get());
+        // return new BookResource($book);
+        $books = Book::with('libraries')->get();
+        return new BookCollection($books);
     }
 
     /**
