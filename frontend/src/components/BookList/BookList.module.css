@@ -1,0 +1,47 @@
+.postListContainer {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+ 
+.postList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+}
+ 
+.postItem {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+ 
+.postItem h3 {
+    margin: 0 0 10px;
+}
+ 
+.postItem p {
+    color: #555;
+}
+ 
+.readMoreButton {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+ 
+.readMoreButton:hover {
+    background-color: #0056b3;
+}
+ 
+.errorMessage {
+    color: red;
+    text-align: center;
+}
