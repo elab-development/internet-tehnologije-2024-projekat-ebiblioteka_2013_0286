@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./Dashboard.module.css";
 import { Link } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
 
 function Dashboard() {
   const [books, setBooks] = useState([]);
@@ -18,11 +19,11 @@ function Dashboard() {
         },
       })
       .then((response) => {
-        setBooks(response.data);
+        setBooks(response.data.books);
       })
       .catch(() => {
         setError("Failed to fetch books");
-        window.location.href = "/login";
+        window.location.href = "/api/login";
       });
   }, []);
 
@@ -51,6 +52,7 @@ function Dashboard() {
     // </div>
 
     <div className={styles["dashboard - container"]}>
+      <NavBar />
       <h2>Available Books</h2>
       {error && <p className={styles.error}>{error}</p>}
       <div className={styles.postList}>
@@ -80,6 +82,7 @@ function Dashboard() {
           <p>No books available</p>
         )}
       </div>
+      <button className={styles.addBookButton}>Add a book</button>
     </div>
   );
 }

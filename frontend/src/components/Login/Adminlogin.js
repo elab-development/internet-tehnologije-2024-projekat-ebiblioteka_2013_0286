@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import styles from "./Login.module.css"; // Uvoz CSS modula
 
-function Login() {
+function Adminlogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -23,7 +23,7 @@ function Login() {
       );
 
       localStorage.setItem("token", response.data.access_token);
-      window.location.href = "/dashboard"; // Preusmeravanje na admin dashboard
+      window.location.href = "/api/dashboard"; // Preusmeravanje na admin dashboard
     } catch (adminError) {
       try {
         const userResponse = await axios.post(

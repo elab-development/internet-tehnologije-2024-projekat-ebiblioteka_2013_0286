@@ -29,5 +29,10 @@ Route::resource('books', BookController::class);
 
 //admin
 
-Route::group(['middleware' => ['auth:admin-api']], function () {});
+Route::group(['middleware' => ['auth:admin-api']], function () {
+    Route::get('/admin/profile', function (Request $request) {
+        return auth('admin-api')->user();
+    });
+    Route::get('/admin/books', [BookController::class, 'index']);
+});
 Route::post('/admin/login', [AuthController::class, 'loginAdmin']);

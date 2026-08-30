@@ -102,3 +102,7 @@ p {
     text-align: center;
 }
 
+.addBookButton {
+    margin-top: 20px; /* Adjust this number to add more or less space */
+}
+

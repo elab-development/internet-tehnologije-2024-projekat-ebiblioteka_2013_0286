@@ -66,7 +66,9 @@ class BookController extends Controller
     public function show(Book $book)
     {
         //
-        return response()->json($book->load('libraries'));
+        // return response()->json($book->load('libraries'));
+        // $book = Book::with('libraries')->get();
+        return new BookResource($book->load('libraries'));
     }
 
     /**
