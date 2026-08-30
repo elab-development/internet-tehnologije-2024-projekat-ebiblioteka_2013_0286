@@ -2,6 +2,12 @@ import logo from "./logo.svg";
 import "./App.css";
 import Login from "./components/Login/Login";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import BookList from "./components/BookList/BookList";
+import PrivateRoute from "./PrivateRoute";
+import BookDetails from "./components/BookDetails/BookDetails";
+import Adminlogin from "./components/Login/Adminlogin";
+import AdminRoute from "./AdminRoute";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -23,7 +29,32 @@ function App() {
     // </div>
     <Router>
       <Routes>
-        <Route path="/api/login" element={<Login />} />
+        <Route path="/api/login" element={<Adminlogin />} />
+        <Route
+          path="/api/books"
+          element={
+            <PrivateRoute>
+              <BookList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/api/books/:id"
+          element={
+            <PrivateRoute>
+              <BookDetails />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/api/dashboard"
+          S
+          element={
+            <AdminRoute>
+              <Dashboard />
+            </AdminRoute>
+          }
+        />
       </Routes>
     </Router>
   );
